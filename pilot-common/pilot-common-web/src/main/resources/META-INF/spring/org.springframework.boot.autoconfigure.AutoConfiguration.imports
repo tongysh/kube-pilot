@@ -1,0 +1,5 @@
+com.kube.pilot.common.web.config.CaptchaConfig
+com.kube.pilot.common.web.config.FilterConfig
+com.kube.pilot.common.web.config.I18nConfig
+com.kube.pilot.common.web.config.ResourcesConfig
+com.kube.pilot.common.web.config.UndertowConfig

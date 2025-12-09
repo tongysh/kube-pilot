@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>kube-pilot</artifactId>
+        <groupId>com.kube.pilot</groupId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <modules>
+        <module>pilot-common-bom</module>
+        <module>pilot-common-social</module>
+        <module>pilot-common-core</module>
+        <module>pilot-common-doc</module>
+        <module>pilot-common-excel</module>
+        <module>pilot-common-idempotent</module>
+        <module>pilot-common-job</module>
+        <module>pilot-common-log</module>
+        <module>pilot-common-mail</module>
+        <module>pilot-common-mybatis</module>
+        <module>pilot-common-oss</module>
+        <module>pilot-common-ratelimiter</module>
+        <module>pilot-common-redis</module>
+        <module>pilot-common-satoken</module>
+        <module>pilot-common-security</module>
+        <module>pilot-common-sms</module>
+        <module>pilot-common-web</module>
+        <module>pilot-common-translation</module>
+        <module>pilot-common-sensitive</module>
+        <module>pilot-common-json</module>
+        <module>pilot-common-encrypt</module>
+        <module>pilot-common-tenant</module>
+        <module>pilot-common-websocket</module>
+        <module>pilot-common-sse</module>
+    </modules>
+
+    <artifactId>pilot-common</artifactId>
+    <packaging>pom</packaging>
+
+    <description>
+        common 通用模块
+    </description>
+
+</project>

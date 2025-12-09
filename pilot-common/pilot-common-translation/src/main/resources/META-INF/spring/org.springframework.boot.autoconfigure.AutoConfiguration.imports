@@ -1,0 +1,6 @@
+com.kube.pilot.common.translation.config.TranslationConfig
+com.kube.pilot.common.translation.core.impl.DeptNameTranslationImpl
+com.kube.pilot.common.translation.core.impl.DictTypeTranslationImpl
+com.kube.pilot.common.translation.core.impl.OssUrlTranslationImpl
+com.kube.pilot.common.translation.core.impl.UserNameTranslationImpl
+com.kube.pilot.common.translation.core.impl.NicknameTranslationImpl

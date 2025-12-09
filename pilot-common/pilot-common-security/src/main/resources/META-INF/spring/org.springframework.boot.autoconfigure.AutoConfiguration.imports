@@ -1,0 +1,2 @@
+com.kube.pilot.common.security.handler.AllUrlHandler
+com.kube.pilot.common.security.config.SecurityConfig

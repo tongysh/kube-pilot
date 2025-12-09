@@ -1,0 +1,3 @@
+com.kube.pilot.common.encrypt.config.EncryptorAutoConfiguration
+com.kube.pilot.common.encrypt.config.ApiDecryptAutoConfiguration
+
