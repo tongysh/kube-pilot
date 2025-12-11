@@ -16,7 +16,7 @@ import java.util.Date;
 /**
  * 流程spel达式定义视图对象 flow_spel
  *
- * @author Michelle.Chung
+ * @author tongysh
  * @date 2025-07-04
  */
 @Data

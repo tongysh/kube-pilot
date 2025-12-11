@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
 /**
  * 小程序认证策略
  *
- * @author Michelle.Chung
+ * @author tongysh
  */
 @Slf4j
 @Service("xcx" + IAuthStrategy.BASE_NAME)

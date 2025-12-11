@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 /**
  * SSE 控制器
  *
- * @author Lion Li
+ * @author tongysh
  */
 @RestController
 @ConditionalOnProperty(value = "sse.enabled", havingValue = "true")

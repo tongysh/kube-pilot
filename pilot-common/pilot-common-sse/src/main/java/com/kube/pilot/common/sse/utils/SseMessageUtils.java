@@ -10,7 +10,7 @@ import com.kube.pilot.common.sse.core.SseEmitterManager;
 /**
  * SSE工具类
  *
- * @author Lion Li
+ * @author tongysh
  */
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

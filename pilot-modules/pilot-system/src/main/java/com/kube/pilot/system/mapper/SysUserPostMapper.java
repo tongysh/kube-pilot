@@ -6,7 +6,7 @@ import com.kube.pilot.system.domain.SysUserPost;
 /**
  * 用户与岗位关联表 数据层
  *
- * @author Lion Li
+ * @author tongysh
  */
 public interface SysUserPostMapper extends BaseMapperPlus<SysUserPost, SysUserPost> {
 

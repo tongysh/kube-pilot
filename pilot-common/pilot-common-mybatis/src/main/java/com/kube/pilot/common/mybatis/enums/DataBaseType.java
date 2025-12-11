@@ -7,7 +7,7 @@ import com.kube.pilot.common.core.utils.StringUtils;
 /**
  * 数据库类型
  *
- * @author Lion Li
+ * @author tongysh
  */
 @Getter
 @AllArgsConstructor

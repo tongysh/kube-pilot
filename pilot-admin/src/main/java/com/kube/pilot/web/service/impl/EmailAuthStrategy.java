@@ -33,7 +33,7 @@ import org.springframework.stereotype.Service;
 /**
  * 邮件认证策略
  *
- * @author Michelle.Chung
+ * @author tongysh
  */
 @Slf4j
 @Service("email" + IAuthStrategy.BASE_NAME)
@@ -52,7 +52,7 @@ public class EmailAuthStrategy implements IAuthStrategy {
         String emailCode = loginBody.getEmailCode();
         LoginUser loginUser = TenantHelper.dynamic(tenantId, () -> {
             SysUserVo user = loadUserByEmail(email);
-            loginService.checkLogin(LoginType.EMAIL, tenantId, user.getUserName(), () -> !validateEmailCode(tenantId, email, emailCode));
+            loginService.checkLogin(LoginType.EMAIL,user.getUserName(), () -> !validateEmailCode(tenantId, email, emailCode));
             // 此处可根据登录用户的数据不同 自行创建 loginUser 属性不够用继承扩展就行了
             return loginService.buildLoginUser(user);
         });
@@ -81,7 +81,7 @@ public class EmailAuthStrategy implements IAuthStrategy {
     private boolean validateEmailCode(String tenantId, String email, String emailCode) {
         String code = RedisUtils.getCacheObject(GlobalConstants.CAPTCHA_CODE_KEY + email);
         if (StringUtils.isBlank(code)) {
-            loginService.recordLogininfor(tenantId, email, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire"));
+            loginService.recordLogininfor( email, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire"));
             throw new CaptchaExpireException();
         }
         return code.equals(emailCode);

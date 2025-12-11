@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * JavaMail 配置属性
  *
- * @author Michelle.Chung
+ * @author tongysh
  */
 @Data
 @ConfigurationProperties(prefix = "mail")

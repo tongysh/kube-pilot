@@ -7,7 +7,7 @@ import com.kube.pilot.common.mybatis.core.mapper.BaseMapperPlus;
 /**
  * 流程spel达式定义Mapper接口
  *
- * @author Michelle.Chung
+ * @author tongysh
  * @date 2025-07-04
  */
 public interface FlwSpelMapper extends BaseMapperPlus<FlowSpel, FlowSpelVo> {

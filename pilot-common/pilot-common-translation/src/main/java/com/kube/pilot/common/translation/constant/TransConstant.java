@@ -3,7 +3,7 @@ package com.kube.pilot.common.translation.constant;
 /**
  * 翻译常量
  *
- * @author Lion Li
+ * @author tongysh
  */
 public interface TransConstant {
 

@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * 通用 字典服务
  *
- * @author Lion Li
+ * @author tongysh
  */
 public interface DictService {
 

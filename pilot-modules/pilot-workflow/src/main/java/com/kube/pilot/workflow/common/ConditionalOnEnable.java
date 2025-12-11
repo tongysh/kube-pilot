@@ -20,7 +20,7 @@ import java.lang.annotation.Target;
  * <p>
  * 使用此注解时，可以动态控制工作流功能是否启用，而不需要修改代码逻辑
  *
- * @author Lion Li
+ * @author tongysh
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE, ElementType.METHOD })

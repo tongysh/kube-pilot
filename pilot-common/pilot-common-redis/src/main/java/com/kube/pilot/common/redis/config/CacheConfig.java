@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 缓存配置
  *
- * @author Lion Li
+ * @author tongysh
  */
 @AutoConfiguration
 @EnableCaching

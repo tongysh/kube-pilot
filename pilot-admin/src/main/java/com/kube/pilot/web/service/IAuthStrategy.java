@@ -9,7 +9,7 @@ import com.kube.pilot.web.domain.vo.LoginVo;
 /**
  * 授权策略
  *
- * @author Michelle.Chung
+ * @author tongysh
  */
 public interface IAuthStrategy {
 

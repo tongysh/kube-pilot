@@ -7,7 +7,7 @@ import com.kube.pilot.system.domain.vo.SysOssVo;
 /**
  * 文件上传 数据层
  *
- * @author Lion Li
+ * @author tongysh
  */
 public interface SysOssMapper extends BaseMapperPlus<SysOss, SysOssVo> {
 }

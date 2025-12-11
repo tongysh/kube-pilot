@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 /**
  * 角色表 sys_role
  *
- * @author Lion Li
+ * @author tongysh
  */
 
 @Data

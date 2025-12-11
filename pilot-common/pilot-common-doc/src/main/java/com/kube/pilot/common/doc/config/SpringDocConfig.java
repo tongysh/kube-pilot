@@ -32,7 +32,7 @@ import java.util.Set;
 /**
  * 接口文档配置
  *
- * @author Lion Li
+ * @author tongysh
  */
 @RequiredArgsConstructor
 @AutoConfiguration(before = SpringDocConfiguration.class)
@@ -115,7 +115,7 @@ public class SpringDocConfig {
     /**
      * 单独使用一个类便于判断 解决springdoc路径拼接重复问题
      *
-     * @author Lion Li
+     * @author tongysh
      */
     static class PlusPaths extends Paths {
 

@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * 列值重复合并策略
  *
- * @author Lion Li
+ * @author tongysh
  */
 @Slf4j
 public class CellMergeStrategy extends AbstractMergeStrategy implements WorkbookWriteHandler {

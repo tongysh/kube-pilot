@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * 验证码 配置属性
  *
- * @author Lion Li
+ * @author tongysh
  */
 @Data
 @ConfigurationProperties(prefix = "captcha")

@@ -9,7 +9,7 @@ import com.kube.pilot.common.mybatis.core.domain.BaseEntity;
 /**
  * 对象存储配置对象 sys_oss_config
  *
- * @author Lion Li
+ * @author tongysh
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

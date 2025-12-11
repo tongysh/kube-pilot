@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 /**
  * 密码登录对象
  *
- * @author Lion Li
+ * @author tongysh
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

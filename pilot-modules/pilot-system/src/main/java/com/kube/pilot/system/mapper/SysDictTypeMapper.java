@@ -7,7 +7,7 @@ import com.kube.pilot.system.domain.vo.SysDictTypeVo;
 /**
  * 字典表 数据层
  *
- * @author Lion Li
+ * @author tongysh
  */
 public interface SysDictTypeMapper extends BaseMapperPlus<SysDictType, SysDictTypeVo> {
 

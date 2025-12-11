@@ -17,7 +17,7 @@ import java.time.Duration;
 /**
  * spring-cache 演示案例
  *
- * @author Lion Li
+ * @author tongysh
  */
 // 类级别 缓存统一配置
 //@CacheConfig(cacheNames = CacheNames.DEMO_CACHE)

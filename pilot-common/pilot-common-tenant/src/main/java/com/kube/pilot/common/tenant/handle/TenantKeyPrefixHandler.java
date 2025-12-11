@@ -10,7 +10,7 @@ import com.kube.pilot.common.redis.handler.KeyPrefixHandler;
 /**
  * 多租户redis缓存key前缀处理
  *
- * @author Lion Li
+ * @author tongysh
  */
 @Slf4j
 public class TenantKeyPrefixHandler extends KeyPrefixHandler {

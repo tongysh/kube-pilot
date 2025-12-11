@@ -12,7 +12,7 @@ import java.io.Serial;
 /**
  * 流程spel达式定义对象 flow_spel
  *
- * @author Michelle.Chung
+ * @author tongysh
  * @date 2025-07-04
  */
 @Data

@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 启动流程返回对象
  *
- * @author Lion Li
+ * @author tongysh
  */
 @Data
 public class StartProcessReturnDTO implements Serializable {

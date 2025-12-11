@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 公告 服务层
  *
- * @author Lion Li
+ * @author tongysh
  */
 public interface ISysNoticeService {
 

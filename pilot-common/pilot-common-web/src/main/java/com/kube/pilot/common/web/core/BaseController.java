@@ -6,7 +6,7 @@ import com.kube.pilot.common.core.utils.StringUtils;
 /**
  * web层通用数据处理
  *
- * @author Lion Li
+ * @author tongysh
  */
 public class BaseController {
 

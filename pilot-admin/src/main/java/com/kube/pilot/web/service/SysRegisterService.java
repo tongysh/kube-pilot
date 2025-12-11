@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 /**
  * 注册校验方法
  *
- * @author Lion Li
+ * @author tongysh
  */
 @RequiredArgsConstructor
 @Service

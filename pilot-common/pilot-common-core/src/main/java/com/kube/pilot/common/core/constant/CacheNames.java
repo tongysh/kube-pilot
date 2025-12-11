@@ -12,7 +12,7 @@ package com.kube.pilot.common.core.constant;
  * <p>
  * 例子: test#60s、test#0#60s、test#0#1m#1000、test#1h#0#500、test#1h#0#500#0
  *
- * @author Lion Li
+ * @author tongysh
  */
 public interface CacheNames {
 

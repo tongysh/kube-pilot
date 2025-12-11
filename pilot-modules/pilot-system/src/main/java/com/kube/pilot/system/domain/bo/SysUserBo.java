@@ -15,7 +15,7 @@ import com.kube.pilot.system.domain.SysUser;
 /**
  * 用户信息业务对象 sys_user
  *
- * @author Michelle.Chung
+ * @author tongysh
  */
 
 @Data

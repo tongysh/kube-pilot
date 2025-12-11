@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * 通用 用户服务
  *
- * @author Lion Li
+ * @author tongysh
  */
 public interface UserService {
 
