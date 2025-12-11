@@ -10,7 +10,7 @@ import jakarta.validation.ConstraintValidatorContext;
 /**
  * 自定义字典值校验器
  *
- * @author AprilWind
+ * @author tongysh
  */
 public class DictPatternValidator implements ConstraintValidator<DictPattern, String> {
 

@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * 抄送对象
  *
- * @author AprilWind
+ * @author tongysh
  */
 @Data
 public class FlowCopyVo implements Serializable {

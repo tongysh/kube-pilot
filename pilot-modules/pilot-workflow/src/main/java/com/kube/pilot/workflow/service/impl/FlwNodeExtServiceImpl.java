@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 /**
  * 流程设计器-节点扩展属性
  *
- * @author AprilWind
+ * @author tongysh
  */
 @ConditionalOnEnable
 @Slf4j

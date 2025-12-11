@@ -13,7 +13,7 @@ import java.util.Date;
 /**
  * 自定义 Date 类型反序列化处理器（支持多种格式）
  *
- * @author AprilWind
+ * @author tongysh
  */
 public class CustomDateDeserializer extends JsonDeserializer<Date> {
 

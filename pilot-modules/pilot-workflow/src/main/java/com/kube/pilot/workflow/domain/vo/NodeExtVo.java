@@ -13,7 +13,7 @@ import java.util.Set;
  * <p>
  * 用于封装从扩展属性 JSON 中解析出的各类信息，包括按钮权限、抄送对象和自定义参数。
  *
- * @author AprilWind
+ * @author tongysh
  */
 @Data
 public class NodeExtVo implements Serializable {

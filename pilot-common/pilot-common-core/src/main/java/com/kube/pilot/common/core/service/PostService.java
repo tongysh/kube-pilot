@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 通用 岗位服务
  *
- * @author AprilWind
+ * @author tongysh
  */
 public interface PostService {
 
