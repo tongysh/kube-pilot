@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 /**
  * 对象存储配置业务对象 sys_oss_config
  *
- * @author Lion Li
+ * @author tongysh
  * @author 孤舟烟雨
  * @date 2021-08-13
  */

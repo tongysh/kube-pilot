@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 集群测试通过 同一个数据只会被消费一次 做好事务补偿
  * 集群测试流程 在其中一台发送数据 两端分别调用获取接口 一次获取一条
  *
- * @author Lion Li
+ * @author tongysh
  * @version 3.6.0
  * @deprecated redisson 新版本已经将队列功能标记删除 一些技术问题无法解决 建议搭建MQ使用
  */

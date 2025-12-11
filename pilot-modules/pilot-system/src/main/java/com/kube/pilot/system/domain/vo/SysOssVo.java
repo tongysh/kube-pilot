@@ -13,7 +13,7 @@ import java.util.Date;
 /**
  * OSS对象存储视图对象 sys_oss
  *
- * @author Lion Li
+ * @author tongysh
  */
 @Data
 @AutoMapper(target = SysOss.class)

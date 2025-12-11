@@ -17,7 +17,7 @@ import com.kube.pilot.system.domain.SysMenu;
 /**
  * 菜单权限业务对象 sys_menu
  *
- * @author Michelle.Chung
+ * @author tongysh
  */
 
 @Data

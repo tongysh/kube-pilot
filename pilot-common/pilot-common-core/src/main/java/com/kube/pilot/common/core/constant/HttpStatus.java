@@ -3,7 +3,7 @@ package com.kube.pilot.common.core.constant;
 /**
  * 返回状态码
  *
- * @author Lion Li
+ * @author tongysh
  */
 public interface HttpStatus {
     /**

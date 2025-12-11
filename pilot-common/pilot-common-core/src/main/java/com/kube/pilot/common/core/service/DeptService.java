@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * 通用 部门服务
  *
- * @author Lion Li
+ * @author tongysh
  */
 public interface DeptService {
 

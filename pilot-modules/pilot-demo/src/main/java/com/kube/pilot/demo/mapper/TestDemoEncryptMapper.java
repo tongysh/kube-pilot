@@ -6,7 +6,7 @@ import com.kube.pilot.demo.domain.TestDemoEncrypt;
 /**
  * 测试加密功能
  *
- * @author Lion Li
+ * @author tongysh
  */
 public interface TestDemoEncryptMapper extends BaseMapperPlus<TestDemoEncrypt, TestDemoEncrypt> {
 

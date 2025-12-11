@@ -10,7 +10,7 @@ import com.kube.pilot.common.mybatis.core.domain.BaseEntity;
 /**
  * 租户套餐对象 sys_tenant_package
  *
- * @author Michelle.Chung
+ * @author tongysh
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

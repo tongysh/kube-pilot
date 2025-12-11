@@ -14,7 +14,7 @@ import com.kube.pilot.system.domain.SysSocial;
 /**
  * 社会化关系业务对象 sys_social
  *
- * @author Lion Li
+ * @author tongysh
  */
 @Data
 @NoArgsConstructor

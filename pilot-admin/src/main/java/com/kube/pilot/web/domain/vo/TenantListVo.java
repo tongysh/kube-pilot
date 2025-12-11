@@ -7,7 +7,7 @@ import lombok.Data;
 /**
  * 租户列表
  *
- * @author Lion Li
+ * @author tongysh
  */
 @Data
 @AutoMapper(target = SysTenantVo.class)

@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * 流程spel达式定义
  *
- * @author Michelle.Chung
+ * @author tongysh
  * @date 2025-07-04
  */
 @ConditionalOnEnable

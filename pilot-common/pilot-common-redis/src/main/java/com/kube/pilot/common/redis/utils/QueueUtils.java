@@ -14,7 +14,7 @@ import java.util.function.Function;
  * 轻量级队列 重量级数据量 请使用 MQ
  * 要求 redis 5.X 以上
  *
- * @author Lion Li
+ * @author tongysh
  * @version 3.6.0 新增
  * @deprecated redisson 新版本已经将队列功能标记删除 一些技术问题无法解决 建议搭建MQ使用
  */

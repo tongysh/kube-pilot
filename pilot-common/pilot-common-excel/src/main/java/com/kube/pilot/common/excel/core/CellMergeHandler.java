@@ -17,7 +17,7 @@ import java.util.*;
 /**
  * 单元格合并处理器
  *
- * @author Lion Li
+ * @author tongysh
  */
 public class CellMergeHandler {
 

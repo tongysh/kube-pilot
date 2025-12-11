@@ -11,7 +11,7 @@ import org.springframework.core.Ordered;
 /**
  * SSE 主题订阅监听器
  *
- * @author Lion Li
+ * @author tongysh
  */
 @Slf4j
 public class SseTopicListener implements ApplicationRunner, Ordered {

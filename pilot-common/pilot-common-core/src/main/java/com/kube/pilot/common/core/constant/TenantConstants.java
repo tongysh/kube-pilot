@@ -3,7 +3,7 @@ package com.kube.pilot.common.core.constant;
 /**
  * 租户常量信息
  *
- * @author Lion Li
+ * @author tongysh
  */
 public interface TenantConstants {
 

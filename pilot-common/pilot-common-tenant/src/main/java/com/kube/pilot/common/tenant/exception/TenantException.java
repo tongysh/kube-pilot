@@ -7,7 +7,7 @@ import java.io.Serial;
 /**
  * 租户异常类
  *
- * @author Lion Li
+ * @author tongysh
  */
 public class TenantException extends BaseException {
 

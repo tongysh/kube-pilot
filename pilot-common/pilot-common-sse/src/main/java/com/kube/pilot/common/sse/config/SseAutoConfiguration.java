@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 /**
  * SSE 自动装配
  *
- * @author Lion Li
+ * @author tongysh
  */
 @AutoConfiguration
 @ConditionalOnProperty(value = "sse.enabled", havingValue = "true")

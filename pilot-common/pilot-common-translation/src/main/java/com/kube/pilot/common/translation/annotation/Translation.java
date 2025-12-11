@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 /**
  * 通用翻译注解
  *
- * @author Lion Li
+ * @author tongysh
  */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)

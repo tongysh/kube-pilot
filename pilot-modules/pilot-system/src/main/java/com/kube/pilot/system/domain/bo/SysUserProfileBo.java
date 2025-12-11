@@ -15,7 +15,7 @@ import com.kube.pilot.common.sensitive.core.SensitiveStrategy;
 /**
  * 个人信息业务处理
  *
- * @author Michelle.Chung
+ * @author tongysh
  */
 
 @Data

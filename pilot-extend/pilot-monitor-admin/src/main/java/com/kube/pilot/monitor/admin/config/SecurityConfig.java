@@ -15,7 +15,7 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
 /**
  * admin 监控 安全配置
  *
- * @author Lion Li
+ * @author tongysh
  */
 @EnableWebSecurity
 @Configuration

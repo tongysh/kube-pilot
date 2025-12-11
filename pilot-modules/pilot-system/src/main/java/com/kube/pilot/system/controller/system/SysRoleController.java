@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * 角色信息
  *
- * @author Lion Li
+ * @author tongysh
  */
 @Validated
 @RequiredArgsConstructor

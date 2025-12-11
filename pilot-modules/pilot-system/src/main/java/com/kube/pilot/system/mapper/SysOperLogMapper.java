@@ -7,7 +7,7 @@ import com.kube.pilot.system.domain.vo.SysOperLogVo;
 /**
  * 操作日志 数据层
  *
- * @author Lion Li
+ * @author tongysh
  */
 public interface SysOperLogMapper extends BaseMapperPlus<SysOperLog, SysOperLogVo> {
 

@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 /**
  * OSS翻译实现
  *
- * @author Lion Li
+ * @author tongysh
  */
 @AllArgsConstructor
 @TranslationType(type = TransConstant.OSS_ID_TO_URL)

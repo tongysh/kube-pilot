@@ -13,7 +13,7 @@ import com.kube.pilot.system.domain.SysDept;
 /**
  * 部门业务对象 sys_dept
  *
- * @author Michelle.Chung
+ * @author tongysh
  */
 
 @Data

@@ -36,7 +36,7 @@ import org.springframework.stereotype.Service;
 /**
  * 密码认证策略
  *
- * @author Michelle.Chung
+ * @author tongysh
  */
 @Slf4j
 @Service("password" + IAuthStrategy.BASE_NAME)
@@ -50,8 +50,8 @@ public class PasswordAuthStrategy implements IAuthStrategy {
     @Override
     public LoginVo login(String body, SysClientVo client) {
         PasswordLoginBody loginBody = JsonUtils.parseObject(body, PasswordLoginBody.class);
-        ValidatorUtils.validate(loginBody);
-        String tenantId = loginBody.getTenantId();
+//        ValidatorUtils.validate(loginBody);
+//        String tenantId = loginBody.getTenantId();
         String username = loginBody.getUsername();
         String password = loginBody.getPassword();
         String code = loginBody.getCode();
@@ -59,17 +59,27 @@ public class PasswordAuthStrategy implements IAuthStrategy {
 
         boolean captchaEnabled = captchaProperties.getEnable();
         // 验证码开关
-        if (captchaEnabled) {
-            validateCaptcha(tenantId, username, code, uuid);
-        }
-        LoginUser loginUser = TenantHelper.dynamic(tenantId, () -> {
-            SysUserVo user = loadUserByUsername(username);
-            loginService.checkLogin(LoginType.PASSWORD, tenantId, username, () -> !BCrypt.checkpw(password, user.getPassword()));
-            // 此处可根据登录用户的数据不同 自行创建 loginUser
-            return loginService.buildLoginUser(user);
-        });
+//        if (captchaEnabled) {
+//            validateCaptcha(tenantId, username, code, uuid);
+//        }
+//        LoginUser loginUser = TenantHelper.dynamic(tenantId, () -> {
+//            SysUserVo user = loadUserByUsername(username);
+//            loginService.checkLogin(LoginType.PASSWORD, tenantId, username, () -> !BCrypt.checkpw(password, user.getPassword()));
+//            // 此处可根据登录用户的数据不同 自行创建 loginUser
+//            return loginService.buildLoginUser(user);
+//        });
+
+
+        /**
+         * 校验用户名和密码信息并构建loginUser
+         */
+        SysUserVo user = loadUserByUsername(username);
+        loginService.checkLogin(LoginType.PASSWORD, username, () -> !BCrypt.checkpw(password, user.getPassword()));
+        LoginUser loginUser = loginService.buildLoginUser(user);
+
         loginUser.setClientKey(client.getClientKey());
         loginUser.setDeviceType(client.getDeviceType());
+
         SaLoginParameter model = new SaLoginParameter();
         model.setDeviceType(client.getDeviceType());
         // 自定义分配 不同用户体系 不同 token 授权时间 不设置默认走全局 yml 配置
@@ -99,11 +109,11 @@ public class PasswordAuthStrategy implements IAuthStrategy {
         String captcha = RedisUtils.getCacheObject(verifyKey);
         RedisUtils.deleteObject(verifyKey);
         if (captcha == null) {
-            loginService.recordLogininfor(tenantId, username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire"));
+            loginService.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire"));
             throw new CaptchaExpireException();
         }
         if (!StringUtils.equalsIgnoreCase(code, captcha)) {
-            loginService.recordLogininfor(tenantId, username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.error"));
+            loginService.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.error"));
             throw new CaptchaException();
         }
     }

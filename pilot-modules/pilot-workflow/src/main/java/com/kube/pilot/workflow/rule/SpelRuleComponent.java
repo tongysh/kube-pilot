@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  *     通过该组件统一管理流程定义中的spel表达式
  * </p>
  *
- * @author Michelle.Chung
+ * @author tongysh
  */
 @ConditionalOnEnable
 @Slf4j
