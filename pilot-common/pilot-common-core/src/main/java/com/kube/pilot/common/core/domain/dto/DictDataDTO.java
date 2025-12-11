@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 字典数据DTO
  *
- * @author AprilWind
+ * @author tongysh
  */
 @Data
 @NoArgsConstructor

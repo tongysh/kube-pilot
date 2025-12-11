@@ -3,7 +3,7 @@ package com.kube.pilot.workflow.common.enums;
 /**
  * 节点扩展属性枚举
  *
- * @author AprilWind
+ * @author tongysh
  */
 public interface NodeExtEnum {
 
