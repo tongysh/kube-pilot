@@ -22,40 +22,38 @@ public class LoginUser implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 租户ID
-     */
-    private String tenantId;
+
 
     /**
-     * 用户ID
+     * 用户基本信息
      */
     private Long userId;
+    private String userName;
+    private String nickName;
+    private String userType;
+    private String email;
+    private String phoneNumber;
+
+
 
     /**
-     * 部门ID
+     * 当前用户管理的租户系统id列表
      */
-    private Long deptId;
+    private List<Long> manageTenantIds;
+
 
     /**
-     * 部门类别编码
+     * 当前用户登录到的租户系统
      */
-    private String deptCategory;
+    private Long tenantId;
 
-    /**
-     * 部门名
-     */
-    private String deptName;
+
 
     /**
      * 用户唯一标识
      */
     private String token;
 
-    /**
-     * 用户类型
-     */
-    private String userType;
 
     /**
      * 登录时间
@@ -87,25 +85,15 @@ public class LoginUser implements Serializable {
      */
     private String os;
 
-    /**
-     * 菜单权限
-     */
-    private Set<String> menuPermission;
 
     /**
-     * 角色权限
+     * 用户权限信息
      */
-    private Set<String> rolePermission;
+    private Set<String> platformMenuPermission;  // 平台菜单权限
+    private Set<String> platformRolePermission;  // 平台角色权限
+    private Set<String> tenantMenuPermission;    // 当前登录租户菜单权限
+    private Set<String> tenantRolePermission;    // 当前登录租户角色权限
 
-    /**
-     * 用户名
-     */
-    private String username;
-
-    /**
-     * 用户昵称
-     */
-    private String nickname;
 
     /**
      * 角色对象

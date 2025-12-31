@@ -31,17 +31,17 @@ public class SysUserVo implements Serializable {
     /**
      * 用户ID
      */
-    private Long userId;
+    private Long id;
 
     /**
      * 租户ID
      */
-    private String tenantId;
+//    private String tenantId;
 
     /**
      * 部门ID
      */
-    private Long deptId;
+//    private Long deptId;
 
     /**
      * 用户账号
@@ -68,7 +68,7 @@ public class SysUserVo implements Serializable {
      * 手机号码
      */
     @Sensitive(strategy = SensitiveStrategy.PHONE, perms = "system:user:edit")
-    private String phonenumber;
+    private String phoneNumber;
 
     /**
      * 用户性别（0男 1女 2未知）

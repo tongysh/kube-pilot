@@ -45,7 +45,6 @@ public class PasswordAuthStrategy implements IAuthStrategy {
 
     private final CaptchaProperties captchaProperties;
     private final SysLoginService loginService;
-    private final SysUserMapper userMapper;
 
     @Override
     public LoginVo login(String body, SysClientVo client) {
@@ -54,10 +53,10 @@ public class PasswordAuthStrategy implements IAuthStrategy {
 //        String tenantId = loginBody.getTenantId();
         String username = loginBody.getUsername();
         String password = loginBody.getPassword();
-        String code = loginBody.getCode();
-        String uuid = loginBody.getUuid();
-
-        boolean captchaEnabled = captchaProperties.getEnable();
+//        String code = loginBody.getCode();
+//        String uuid = loginBody.getUuid();
+//
+//        boolean captchaEnabled = captchaProperties.getEnable();
         // 验证码开关
 //        if (captchaEnabled) {
 //            validateCaptcha(tenantId, username, code, uuid);
@@ -73,7 +72,7 @@ public class PasswordAuthStrategy implements IAuthStrategy {
         /**
          * 校验用户名和密码信息并构建loginUser
          */
-        SysUserVo user = loadUserByUsername(username);
+        SysUserVo user = loginService.checkUser(username);
         loginService.checkLogin(LoginType.PASSWORD, username, () -> !BCrypt.checkpw(password, user.getPassword()));
         LoginUser loginUser = loginService.buildLoginUser(user);
 
@@ -118,16 +117,6 @@ public class PasswordAuthStrategy implements IAuthStrategy {
         }
     }
 
-    private SysUserVo loadUserByUsername(String username) {
-        SysUserVo user = userMapper.selectVoOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getUserName, username));
-        if (ObjectUtil.isNull(user)) {
-            log.info("登录用户：{} 不存在.", username);
-            throw new UserException("user.not.exists", username);
-        } else if (SystemConstants.DISABLE.equals(user.getStatus())) {
-            log.info("登录用户：{} 已被停用.", username);
-            throw new UserException("user.blocked", username);
-        }
-        return user;
-    }
+
 
 }

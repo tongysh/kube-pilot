@@ -7,6 +7,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Opt;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.lock.annotation.Lock4j;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.kube.pilot.system.domain.vo.*;
 import com.kube.pilot.system.service.*;
 import lombok.RequiredArgsConstructor;
@@ -148,21 +149,26 @@ public class SysLoginService {
      * 构建登录用户
      */
     public LoginUser buildLoginUser(SysUserVo user) {
+
         LoginUser loginUser = new LoginUser();
-        Long userId = user.getUserId();
-//        loginUser.setTenantId(user.getTenantId());
+
+        // 用户基本信息
+        Long userId = user.getId();
+        String userName = user.getUserName();
+        String nickName = user.getNickName();
+        String userType = user.getUserType();
+
         loginUser.setUserId(userId);
-        loginUser.setDeptId(user.getDeptId());
-        loginUser.setUsername(user.getUserName());
-        loginUser.setNickname(user.getNickName());
-        loginUser.setUserType(user.getUserType());
+        loginUser.setUserName(userName);
+        loginUser.setNickName(nickName);
+        loginUser.setUserType(userType);
         loginUser.setMenuPermission(permissionService.getMenuPermission(userId));
         loginUser.setRolePermission(permissionService.getRolePermission(userId));
-        if (ObjectUtil.isNotNull(user.getDeptId())) {
-            Opt<SysDeptVo> deptOpt = Opt.of(user.getDeptId()).map(deptService::selectDeptById);
-            loginUser.setDeptName(deptOpt.map(SysDeptVo::getDeptName).orElse(StringUtils.EMPTY));
-            loginUser.setDeptCategory(deptOpt.map(SysDeptVo::getDeptCategory).orElse(StringUtils.EMPTY));
-        }
+//        if (ObjectUtil.isNotNull(user.getDeptId())) {
+//            Opt<SysDeptVo> deptOpt = Opt.of(user.getDeptId()).map(deptService::selectDeptById);
+//            loginUser.setDeptName(deptOpt.map(SysDeptVo::getDeptName).orElse(StringUtils.EMPTY));
+//            loginUser.setDeptCategory(deptOpt.map(SysDeptVo::getDeptCategory).orElse(StringUtils.EMPTY));
+//        }
         List<SysRoleVo> roles = roleService.selectRolesByUserId(userId);
         List<SysPostVo> posts = postService.selectPostsByUserId(userId);
         loginUser.setRoles(BeanUtil.copyToList(roles, RoleDTO.class));
@@ -282,6 +288,24 @@ public class SysLoginService {
             log.info("登录租户：{} 已超过有效期.", tenantId);
             throw new TenantException("tenant.expired");
         }
+    }
+
+
+    /**
+     * 校验用户
+     * @param username
+     * @return
+     */
+    public SysUserVo checkUser(String username) {
+        SysUserVo user = userMapper.selectVoOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getUserName, username));
+        if (ObjectUtil.isNull(user)) {
+            log.info("登录用户：{} 不存在.", username);
+            throw new UserException("user.not.exists", username);
+        } else if (SystemConstants.DISABLE.equals(user.getStatus())) {
+            log.info("登录用户：{} 已被停用.", username);
+            throw new UserException("user.blocked", username);
+        }
+        return user;
     }
 
 }

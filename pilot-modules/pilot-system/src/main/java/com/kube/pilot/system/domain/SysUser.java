@@ -1,6 +1,7 @@
 package com.kube.pilot.system.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.kube.pilot.common.mybatis.core.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -19,18 +20,18 @@ import java.util.Date;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @TableName("sys_user")
-public class SysUser extends TenantEntity {
+public class SysUser extends BaseEntity {
 
     /**
      * 用户ID
      */
-    @TableId(value = "user_id")
-    private Long userId;
+    @TableId(value = "id")
+    private Long id;
 
     /**
      * 部门ID
      */
-    private Long deptId;
+//    private Long deptId;
 
     /**
      * 用户账号
@@ -55,7 +56,7 @@ public class SysUser extends TenantEntity {
     /**
      * 手机号码
      */
-    private String phonenumber;
+    private String phoneNumber;
 
     /**
      * 用户性别
@@ -91,12 +92,12 @@ public class SysUser extends TenantEntity {
     /**
      * 最后登录IP
      */
-    private String loginIp;
+//    private String loginIp;
 
     /**
      * 最后登录时间
      */
-    private Date loginDate;
+//    private Date loginDate;
 
     /**
      * 备注
@@ -104,12 +105,17 @@ public class SysUser extends TenantEntity {
     private String remark;
 
 
-    public SysUser(Long userId) {
-        this.userId = userId;
+//    public SysUser(Long userId) {
+//        this.userId = userId;
+//    }
+
+
+    public SysUser(Long id) {
+        this.id = id;
     }
 
     public boolean isSuperAdmin() {
-        return SystemConstants.SUPER_ADMIN_ID.equals(this.userId);
+        return SystemConstants.SUPER_ADMIN_ID.equals(this.id);
     }
 
 }
