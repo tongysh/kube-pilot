@@ -27,8 +27,8 @@ public class SysMenu extends BaseEntity {
     /**
      * 菜单ID
      */
-    @TableId(value = "menu_id")
-    private Long menuId;
+    @TableId(value = "id")
+    private Long id;
 
     /**
      * 父菜单ID

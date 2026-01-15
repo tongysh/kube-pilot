@@ -33,8 +33,8 @@ public class BaseEntity implements Serializable {
     /**
      * 创建部门
      */
-    @TableField(fill = FieldFill.INSERT)
-    private Long createDept;
+//    @TableField(fill = FieldFill.INSERT)
+//    private Long createDept;
 
     /**
      * 创建者

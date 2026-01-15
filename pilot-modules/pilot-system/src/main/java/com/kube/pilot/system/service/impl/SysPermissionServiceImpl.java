@@ -10,6 +10,8 @@ import com.kube.pilot.system.service.ISysRoleService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -24,14 +26,9 @@ public class SysPermissionServiceImpl implements ISysPermissionService, Permissi
     private final ISysRoleService roleService;
     private final ISysMenuService menuService;
 
-    /**
-     * 获取角色数据权限
-     *
-     * @param userId  用户id
-     * @return 角色权限信息
-     */
+
     @Override
-    public Set<String> getRolePermission(Long userId) {
+    public Set<String> getPlatformRolePermission(Long userId) {
         Set<String> roles = new HashSet<>();
         // 管理员拥有所有权限
         if (LoginHelper.isSuperAdmin(userId)) {
@@ -42,14 +39,9 @@ public class SysPermissionServiceImpl implements ISysPermissionService, Permissi
         return roles;
     }
 
-    /**
-     * 获取菜单数据权限
-     *
-     * @param userId  用户id
-     * @return 菜单权限信息
-     */
+
     @Override
-    public Set<String> getMenuPermission(Long userId) {
+    public Set<String> getPlatformMenuPermission (Long userId) {
         Set<String> perms = new HashSet<>();
         // 管理员拥有所有权限
         if (LoginHelper.isSuperAdmin(userId)) {
@@ -58,5 +50,25 @@ public class SysPermissionServiceImpl implements ISysPermissionService, Permissi
             perms.addAll(menuService.selectMenuPermsByUserId(userId));
         }
         return perms;
+    }
+
+    @Override
+    public Set<String> getTenantRolePermission(Long userId, Long tenantId) {
+        return Set.of();
+    }
+
+    @Override
+    public Set<String> getTenantMenuPermission(Long userId, Long tenantId) {
+        return Set.of();
+    }
+
+    @Override
+    public Map<Long, Set<String>> getAllTenantRolePermission(Long userId, List<Long> tenantIds) {
+        return Map.of();
+    }
+
+    @Override
+    public Map<Long, Set<String>> getAllTenantMenuPermission(Long userId, List<Long> tenantIds) {
+        return Map.of();
     }
 }

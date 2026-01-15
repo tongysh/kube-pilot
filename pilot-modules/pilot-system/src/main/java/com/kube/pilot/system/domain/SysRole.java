@@ -23,8 +23,8 @@ public class SysRole extends TenantEntity {
     /**
      * 角色ID
      */
-    @TableId(value = "role_id")
-    private Long roleId;
+    @TableId(value = "id")
+    private Long id;
 
     /**
      * 角色名称
@@ -37,24 +37,29 @@ public class SysRole extends TenantEntity {
     private String roleKey;
 
     /**
-     * 角色排序
+     * 角色类型
      */
-    private Integer roleSort;
+    private String roleType;
 
-    /**
-     * 数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限 5：仅本人数据权限 6：部门及以下或本人数据权限）
-     */
-    private String dataScope;
+//    /**
+//     * 角色排序
+//     */
+//    private Integer roleSort;
 
-    /**
-     * 菜单树选择项是否关联显示（ 0：父子不互相关联显示 1：父子互相关联显示）
-     */
-    private Boolean menuCheckStrictly;
+//    /**
+//     * 数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限 5：仅本人数据权限 6：部门及以下或本人数据权限）
+//     */
+//    private String dataScope;
 
-    /**
-     * 部门树选择项是否关联显示（0：父子不互相关联显示 1：父子互相关联显示 ）
-     */
-    private Boolean deptCheckStrictly;
+//    /**
+//     * 菜单树选择项是否关联显示（ 0：父子不互相关联显示 1：父子互相关联显示）
+//     */
+//    private Boolean menuCheckStrictly;
+//
+//    /**
+//     * 部门树选择项是否关联显示（0：父子不互相关联显示 1：父子互相关联显示 ）
+//     */
+//    private Boolean deptCheckStrictly;
 
     /**
      * 角色状态（0正常 1停用）
@@ -72,8 +77,8 @@ public class SysRole extends TenantEntity {
      */
     private String remark;
 
-    public SysRole(Long roleId) {
-        this.roleId = roleId;
-    }
 
+    public SysRole(Long id) {
+        this.id = id;
+    }
 }

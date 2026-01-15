@@ -74,10 +74,9 @@ public class PasswordAuthStrategy implements IAuthStrategy {
          */
         SysUserVo user = loginService.checkUser(username);
         loginService.checkLogin(LoginType.PASSWORD, username, () -> !BCrypt.checkpw(password, user.getPassword()));
-        LoginUser loginUser = loginService.buildLoginUser(user);
+        LoginUser loginUser = loginService.buildLoginUser(user,client);
 
-        loginUser.setClientKey(client.getClientKey());
-        loginUser.setDeviceType(client.getDeviceType());
+
 
         SaLoginParameter model = new SaLoginParameter();
         model.setDeviceType(client.getDeviceType());

@@ -119,7 +119,7 @@ public class PlusDataPermissionHandler {
             }
             // 包含权限标识符 这直接跳过
             if (StringUtils.isNotBlank(dataColumn.permission()) &&
-                CollUtil.contains(user.getMenuPermission(), dataColumn.permission())
+                CollUtil.contains(user.getPlatformMenuPermission(), dataColumn.permission())
             ) {
                 ignoreMap.put(dataColumn, Boolean.TRUE);
                 continue;

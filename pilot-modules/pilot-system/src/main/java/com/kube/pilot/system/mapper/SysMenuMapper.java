@@ -33,7 +33,7 @@ public interface SysMenuMapper extends BaseMapperPlus<SysMenu, SysMenuVo> {
         return """
                 select menu_id from sys_role_menu where role_id in (
                     select sur.role_id from sys_user_role sur
-                        left join sys_role sr on sr.role_id = sur.role_id
+                        left join sys_role sr on sr.id = sur.role_id
                         where sur.user_id = %d and sr.status = '0'
                 )
             """.formatted(userId);
@@ -89,7 +89,7 @@ public interface SysMenuMapper extends BaseMapperPlus<SysMenu, SysMenuVo> {
         List<String> list = this.selectObjs(
             new LambdaQueryWrapper<SysMenu>()
                 .select(SysMenu::getPerms)
-                .inSql(SysMenu::getMenuId, this.buildMenuByUserSql(userId))
+                .inSql(SysMenu::getId, this.buildMenuByUserSql(userId))
                 .isNotNull(SysMenu::getPerms)
         );
         return new HashSet<>(StreamUtils.filter(list, StringUtils::isNotBlank));
@@ -105,7 +105,7 @@ public interface SysMenuMapper extends BaseMapperPlus<SysMenu, SysMenuVo> {
         List<String> list = this.selectObjs(
             new LambdaQueryWrapper<SysMenu>()
                 .select(SysMenu::getPerms)
-                .inSql(SysMenu::getMenuId, this.buildMenuByRoleSql(roleId))
+                .inSql(SysMenu::getId, this.buildMenuByRoleSql(roleId))
                 .isNotNull(SysMenu::getPerms)
         );
         return new HashSet<>(StreamUtils.filter(list, StringUtils::isNotBlank));
@@ -134,12 +134,12 @@ public interface SysMenuMapper extends BaseMapperPlus<SysMenu, SysMenuVo> {
      */
     default List<Long> selectMenuListByRoleId(Long roleId, boolean menuCheckStrictly) {
         LambdaQueryWrapper<SysMenu> wrapper = new LambdaQueryWrapper<>();
-        wrapper.select(SysMenu::getMenuId)
-            .inSql(SysMenu::getMenuId, buildMenuByRoleSql(roleId))
+        wrapper.select(SysMenu::getId)
+            .inSql(SysMenu::getId, buildMenuByRoleSql(roleId))
             .orderByAsc(SysMenu::getParentId)
             .orderByAsc(SysMenu::getOrderNum);
         if (menuCheckStrictly) {
-            wrapper.notInSql(SysMenu::getMenuId, this.buildParentMenuByRoleSql(roleId));
+            wrapper.notInSql(SysMenu::getId, this.buildParentMenuByRoleSql(roleId));
         }
         return this.selectObjs(wrapper);
     }

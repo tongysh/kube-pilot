@@ -49,8 +49,8 @@ public class SysProfileController extends BaseController {
     @GetMapping
     public R<ProfileVo> profile() {
         SysUserVo user = userService.selectUserById(LoginHelper.getUserId());
-        String roleGroup = userService.selectUserRoleGroup(user.getUserId());
-        String postGroup = userService.selectUserPostGroup(user.getUserId());
+        String roleGroup = userService.selectUserRoleGroup(user.getId());
+        String postGroup = userService.selectUserPostGroup(user.getId());
         // 单独做一个vo专门给个人中心用 避免数据被脱敏
         ProfileUserVo profileUser = BeanUtil.toBean(user, ProfileUserVo.class);
         ProfileVo profileVo = new ProfileVo(profileUser, roleGroup, postGroup);
@@ -98,7 +98,7 @@ public class SysProfileController extends BaseController {
         if (BCrypt.checkpw(bo.getNewPassword(), password)) {
             return R.fail("新密码不能与旧密码相同");
         }
-        int rows = DataPermissionHelper.ignore(() -> userService.resetUserPwd(user.getUserId(), BCrypt.hashpw(bo.getNewPassword())));
+        int rows = DataPermissionHelper.ignore(() -> userService.resetUserPwd(user.getId(), BCrypt.hashpw(bo.getNewPassword())));
         if (rows > 0) {
             return R.ok();
         }

@@ -217,7 +217,7 @@ public class FlwDefinitionServiceImpl implements IFlwDefinitionService {
             .eq(FlowCategory::getCategoryId, FlowConstant.FLOW_CATEGORY_ID));
         flowCategory.setCategoryId(null);
         flowCategory.setTenantId(tenantId);
-        flowCategory.setCreateDept(null);
+//        flowCategory.setCreateDept(null);
         flowCategory.setCreateBy(null);
         flowCategory.setCreateTime(null);
         flowCategory.setUpdateBy(null);

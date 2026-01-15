@@ -15,7 +15,7 @@ public interface PermissionService {
      * @param userId  用户id
      * @return 角色权限信息
      */
-    Set<String> getRolePermission(Long userId);
+    Set<String> getPlatformRolePermission(Long userId);
 
     /**
      * 获取菜单数据权限
@@ -23,6 +23,6 @@ public interface PermissionService {
      * @param userId  用户id
      * @return 菜单权限信息
      */
-    Set<String> getMenuPermission(Long userId);
+    Set<String> getPlatformMenuPermission(Long userId);
 
 }

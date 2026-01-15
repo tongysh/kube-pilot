@@ -147,7 +147,8 @@ public class SysDeptServiceImpl implements ISysDeptService, DeptService {
     @Override
     public List<Long> selectDeptListByRoleId(Long roleId) {
         SysRole role = roleMapper.selectById(roleId);
-        return baseMapper.selectDeptListByRoleId(roleId, role.getDeptCheckStrictly());
+//        return baseMapper.selectDeptListByRoleId(roleId, role.getDeptCheckStrictly());
+        return null;
     }
 
     /**
@@ -253,8 +254,9 @@ public class SysDeptServiceImpl implements ISysDeptService, DeptService {
      */
     @Override
     public boolean checkDeptExistUser(Long deptId) {
-        return userMapper.exists(new LambdaQueryWrapper<SysUser>()
-            .eq(SysUser::getDeptId, deptId));
+//        return userMapper.exists(new LambdaQueryWrapper<SysUser>()
+//            .eq(SysUser::getDeptId, deptId));
+        return true;
     }
 
     /**

@@ -120,8 +120,8 @@ public class SysUserController extends BaseController {
             return R.fail("没有权限访问用户数据!");
         }
         userInfoVo.setUser(user);
-        userInfoVo.setPermissions(loginUser.getMenuPermission());
-        userInfoVo.setRoles(loginUser.getRolePermission());
+        userInfoVo.setPermissions(loginUser.getPlatformMenuPermission());
+        userInfoVo.setRoles(loginUser.getPlatformRolePermission());
         return R.ok(userInfoVo);
     }
 
@@ -139,13 +139,13 @@ public class SysUserController extends BaseController {
             SysUserVo sysUser = userService.selectUserById(userId);
             userInfoVo.setUser(sysUser);
             userInfoVo.setRoleIds(roleService.selectRoleListByUserId(userId));
-            Long deptId = sysUser.getDeptId();
-            if (ObjectUtil.isNotNull(deptId)) {
-                SysPostBo postBo = new SysPostBo();
-                postBo.setDeptId(deptId);
-                userInfoVo.setPosts(postService.selectPostList(postBo));
-                userInfoVo.setPostIds(postService.selectPostListByUserId(userId));
-            }
+//            Long deptId = sysUser.getDeptId();
+//            if (ObjectUtil.isNotNull(deptId)) {
+//                SysPostBo postBo = new SysPostBo();
+//                postBo.setDeptId(deptId);
+//                userInfoVo.setPosts(postService.selectPostList(postBo));
+//                userInfoVo.setPostIds(postService.selectPostListByUserId(userId));
+//            }
         }
         SysRoleBo roleBo = new SysRoleBo();
         roleBo.setStatus(SystemConstants.NORMAL);

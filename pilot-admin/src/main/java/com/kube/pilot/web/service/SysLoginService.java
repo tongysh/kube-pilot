@@ -118,7 +118,7 @@ public class SysLoginService {
                 // 超级管理员 登出清除动态租户
                 TenantHelper.clearDynamic();
             }
-            recordLogininfor( loginUser.getUsername(), Constants.LOGOUT, MessageUtils.message("user.logout.success"));
+            recordLogininfor( loginUser.getUserName(), Constants.LOGOUT, MessageUtils.message("user.logout.success"));
         } catch (NotLoginException ignored) {
         } finally {
             try {
@@ -148,7 +148,7 @@ public class SysLoginService {
     /**
      * 构建登录用户
      */
-    public LoginUser buildLoginUser(SysUserVo user) {
+    public LoginUser buildLoginUser(SysUserVo user,SysClientVo client) {
 
         LoginUser loginUser = new LoginUser();
 
@@ -162,8 +162,22 @@ public class SysLoginService {
         loginUser.setUserName(userName);
         loginUser.setNickName(nickName);
         loginUser.setUserType(userType);
-        loginUser.setMenuPermission(permissionService.getMenuPermission(userId));
-        loginUser.setRolePermission(permissionService.getRolePermission(userId));
+        
+        if("platform".equals(userType)){
+            // 平台用户
+            setLoginUserInfoForPlatformUser(loginUser,userId);
+        } else if ("tenant".equals(userType)) {
+            // 租户系统用户
+//            setLoginUserInfoForTenantUser(loginUser,userId);
+        } else if ("platformAndTenant".equals(userType)) {
+            // 当前用户既是平台用户  又是租户系统的用户
+            setLoginUserInfoForPlatformUser(loginUser,userId);
+//            setLoginUserInfoForTenantUser(loginUser,userId);
+        }
+
+
+//        loginUser.setMenuPermission(permissionService.getMenuPermission(userId));
+//        loginUser.setRolePermission(permissionService.getRolePermission(userId));
 //        if (ObjectUtil.isNotNull(user.getDeptId())) {
 //            Opt<SysDeptVo> deptOpt = Opt.of(user.getDeptId()).map(deptService::selectDeptById);
 //            loginUser.setDeptName(deptOpt.map(SysDeptVo::getDeptName).orElse(StringUtils.EMPTY));
@@ -173,8 +187,39 @@ public class SysLoginService {
         List<SysPostVo> posts = postService.selectPostsByUserId(userId);
         loginUser.setRoles(BeanUtil.copyToList(roles, RoleDTO.class));
         loginUser.setPosts(BeanUtil.copyToList(posts, PostDTO.class));
+
+
+
+        loginUser.setClientKey(client.getClientKey());
+        loginUser.setDeviceType(client.getDeviceType());
+
+
+
         return loginUser;
     }
+
+
+    /**
+     * 针对平台用户设置登录信息
+     * @param loginUser
+     */
+    private void setLoginUserInfoForPlatformUser(LoginUser loginUser,Long userId) {
+        loginUser.setPlatformMenuPermission(permissionService.getPlatformMenuPermission(userId));
+        loginUser.setPlatformRolePermission(permissionService.getPlatformRolePermission(userId));
+
+    }
+
+
+    /**
+     * 针对平台用户设置登录信息
+     * @param loginUser
+     */
+    private void setLoginUserInfoForTenantUser(LoginUser loginUser,Long userId) {
+
+
+    }
+
+
 
     /**
      * 记录登录信息
@@ -183,9 +228,9 @@ public class SysLoginService {
      */
     public void recordLoginInfo(Long userId, String ip) {
         SysUser sysUser = new SysUser();
-        sysUser.setUserId(userId);
-        sysUser.setLoginIp(ip);
-        sysUser.setLoginDate(DateUtils.getNowDate());
+        sysUser.setId(userId);
+//        sysUser.setLoginIp(ip);
+//        sysUser.setLoginDate(DateUtils.getNowDate());
         sysUser.setUpdateBy(userId);
         DataPermissionHelper.ignore(() -> userMapper.updateById(sysUser));
     }

@@ -31,7 +31,7 @@ public class SaPermissionImpl implements StpInterface {
             PermissionService permissionService = getPermissionService();
             if (ObjectUtil.isNotNull(permissionService)) {
                 List<String> list = StringUtils.splitList(loginId.toString(), ":");
-                return new ArrayList<>(permissionService.getMenuPermission(Long.parseLong(list.get(1))));
+                return new ArrayList<>(permissionService.getPlatformMenuPermission(Long.parseLong(list.get(1))));
             } else {
                 throw new ServiceException("PermissionService 实现类不存在");
             }
@@ -40,9 +40,9 @@ public class SaPermissionImpl implements StpInterface {
         if (userType == UserType.APP_USER) {
             // 其他端 自行根据业务编写
         }
-        if (CollUtil.isNotEmpty(loginUser.getMenuPermission())) {
+        if (CollUtil.isNotEmpty(loginUser.getPlatformMenuPermission())) {
             // SYS_USER 默认返回权限
-            return new ArrayList<>(loginUser.getMenuPermission());
+            return new ArrayList<>(loginUser.getPlatformMenuPermission());
         } else {
             return new ArrayList<>();
         }
@@ -58,7 +58,7 @@ public class SaPermissionImpl implements StpInterface {
             PermissionService permissionService = getPermissionService();
             if (ObjectUtil.isNotNull(permissionService)) {
                 List<String> list = StringUtils.splitList(loginId.toString(), ":");
-                return new ArrayList<>(permissionService.getRolePermission(Long.parseLong(list.get(1))));
+                return new ArrayList<>(permissionService.getPlatformRolePermission(Long.parseLong(list.get(1))));
             } else {
                 throw new ServiceException("PermissionService 实现类不存在");
             }
@@ -67,9 +67,9 @@ public class SaPermissionImpl implements StpInterface {
         if (userType == UserType.APP_USER) {
             // 其他端 自行根据业务编写
         }
-        if (CollUtil.isNotEmpty(loginUser.getRolePermission())) {
+        if (CollUtil.isNotEmpty(loginUser.getPlatformRolePermission())) {
             // SYS_USER 默认返回权限
-            return new ArrayList<>(loginUser.getRolePermission());
+            return new ArrayList<>(loginUser.getPlatformRolePermission());
         } else {
             return new ArrayList<>();
         }

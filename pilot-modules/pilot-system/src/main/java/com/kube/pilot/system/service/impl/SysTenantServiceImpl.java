@@ -155,21 +155,21 @@ public class SysTenantServiceImpl implements ISysTenantService {
 
         // 创建系统用户
         SysUser user = new SysUser();
-        user.setTenantId(tenantId);
+//        user.setTenantId(tenantId);
         user.setUserName(bo.getUsername());
         user.setNickName(bo.getUsername());
         user.setPassword(BCrypt.hashpw(bo.getPassword()));
-        user.setDeptId(deptId);
+//        user.setDeptId(deptId);
         userMapper.insert(user);
         //新增系统用户后，默认当前用户为部门的负责人
         SysDept sd = new SysDept();
-        sd.setLeader(user.getUserId());
+        sd.setLeader(user.getId());
         sd.setDeptId(deptId);
         deptMapper.updateById(sd);
 
         // 用户和角色关联表
         SysUserRole userRole = new SysUserRole();
-        userRole.setUserId(user.getUserId());
+        userRole.setUserId(user.getId());
         userRole.setRoleId(roleId);
         userRoleMapper.insert(userRole);
 
@@ -181,7 +181,7 @@ public class SysTenantServiceImpl implements ISysTenantService {
         for (SysDictType dictType : dictTypeList) {
             dictType.setDictId(null);
             dictType.setTenantId(tenantId);
-            dictType.setCreateDept(null);
+//            dictType.setCreateDept(null);
             dictType.setCreateBy(null);
             dictType.setCreateTime(null);
             dictType.setUpdateBy(null);
@@ -190,7 +190,7 @@ public class SysTenantServiceImpl implements ISysTenantService {
         for (SysDictData dictData : dictDataList) {
             dictData.setDictCode(null);
             dictData.setTenantId(tenantId);
-            dictData.setCreateDept(null);
+//            dictData.setCreateDept(null);
             dictData.setCreateBy(null);
             dictData.setCreateTime(null);
             dictData.setUpdateBy(null);
@@ -204,7 +204,7 @@ public class SysTenantServiceImpl implements ISysTenantService {
         for (SysConfig config : sysConfigList) {
             config.setConfigId(null);
             config.setTenantId(tenantId);
-            config.setCreateDept(null);
+//            config.setCreateDept(null);
             config.setCreateBy(null);
             config.setCreateTime(null);
             config.setUpdateBy(null);
@@ -258,10 +258,10 @@ public class SysTenantServiceImpl implements ISysTenantService {
         role.setTenantId(tenantId);
         role.setRoleName(TenantConstants.TENANT_ADMIN_ROLE_NAME);
         role.setRoleKey(TenantConstants.TENANT_ADMIN_ROLE_KEY);
-        role.setRoleSort(1);
+//        role.setRoleSort(1);
         role.setStatus(SystemConstants.NORMAL);
         roleMapper.insert(role);
-        Long roleId = role.getRoleId();
+        Long roleId = role.getId();
 
         // 创建角色菜单
         List<SysRoleMenu> roleMenus = new ArrayList<>(menuIds.size());
@@ -386,14 +386,14 @@ public class SysTenantServiceImpl implements ISysTenantService {
                 List<SysRoleMenu> roleMenus = new ArrayList<>(menuIds.size());
                 menuIds.forEach(menuId -> {
                     SysRoleMenu roleMenu = new SysRoleMenu();
-                    roleMenu.setRoleId(item.getRoleId());
+                    roleMenu.setRoleId(item.getId());
                     roleMenu.setMenuId(menuId);
                     roleMenus.add(roleMenu);
                 });
-                roleMenuMapper.delete(new LambdaQueryWrapper<SysRoleMenu>().eq(SysRoleMenu::getRoleId, item.getRoleId()));
+                roleMenuMapper.delete(new LambdaQueryWrapper<SysRoleMenu>().eq(SysRoleMenu::getRoleId, item.getId()));
                 roleMenuMapper.insertBatch(roleMenus);
             } else {
-                roleIds.add(item.getRoleId());
+                roleIds.add(item.getId());
             }
         });
         if (!roleIds.isEmpty()) {
@@ -488,7 +488,7 @@ public class SysTenantServiceImpl implements ISysTenantService {
                         data.setTenantId(tenantId);
                         data.setCreateTime(null);
                         data.setUpdateTime(null);
-                        data.setCreateDept(null);
+//                        data.setCreateDept(null);
                         data.setCreateBy(null);
                         data.setUpdateBy(null);
                         syncTenantIds.add(tenantId);

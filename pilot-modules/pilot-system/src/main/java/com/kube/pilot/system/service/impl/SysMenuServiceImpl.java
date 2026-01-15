@@ -69,7 +69,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
         // 管理员显示所有菜单信息 不是管理员 按用户id过滤菜单
         if (!LoginHelper.isSuperAdmin(userId)) {
             // 通过用户id获取角色id 通过角色id获取菜单id 然后in菜单
-            wrapper.inSql(SysMenu::getMenuId, baseMapper.buildMenuByUserSql(userId));
+            wrapper.inSql(SysMenu::getId, baseMapper.buildMenuByUserSql(userId));
         }
         menuList = baseMapper.selectVoList(
             wrapper.like(StringUtils.isNotBlank(menu.getMenuName()), SysMenu::getMenuName, menu.getMenuName())
@@ -120,7 +120,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
             menus = baseMapper.selectList(
                 wrapper.in(SysMenu::getMenuType, SystemConstants.TYPE_DIR, SystemConstants.TYPE_MENU)
                     .eq(SysMenu::getStatus, SystemConstants.NORMAL)
-                    .inSql(SysMenu::getMenuId, baseMapper.buildMenuByUserSql(userId))
+                    .inSql(SysMenu::getId, baseMapper.buildMenuByUserSql(userId))
                     .orderByAsc(SysMenu::getParentId)
                     .orderByAsc(SysMenu::getOrderNum));
         }
@@ -136,7 +136,8 @@ public class SysMenuServiceImpl implements ISysMenuService {
     @Override
     public List<Long> selectMenuListByRoleId(Long roleId) {
         SysRole role = roleMapper.selectById(roleId);
-        return baseMapper.selectMenuListByRoleId(roleId, role.getMenuCheckStrictly());
+        return null;
+//        return baseMapper.selectMenuListByRoleId(roleId, role.getMenuCheckStrictly());
     }
 
     /**
@@ -156,14 +157,14 @@ public class SysMenuServiceImpl implements ISysMenuService {
         if (tenantPackage.getMenuCheckStrictly()) {
             parentIds = baseMapper.selectObjs(new LambdaQueryWrapper<SysMenu>()
                 .select(SysMenu::getParentId)
-                .in(SysMenu::getMenuId, menuIds), x -> {
+                .in(SysMenu::getId, menuIds), x -> {
                 return Convert.toLong(x);
             });
         }
         return baseMapper.selectObjs(new LambdaQueryWrapper<SysMenu>()
-            .select(SysMenu::getMenuId)
-            .in(SysMenu::getMenuId, menuIds)
-            .notIn(CollUtil.isNotEmpty(parentIds), SysMenu::getMenuId, parentIds), x -> {
+            .select(SysMenu::getId)
+            .in(SysMenu::getId, menuIds)
+            .notIn(CollUtil.isNotEmpty(parentIds), SysMenu::getId, parentIds), x -> {
             return Convert.toLong(x);
         });
     }
@@ -179,7 +180,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     public List<RouterVo> buildMenus(List<SysMenu> menus) {
         List<RouterVo> routers = new LinkedList<>();
         for (SysMenu menu : menus) {
-            String name = menu.getRouteName() + menu.getMenuId();
+            String name = menu.getRouteName() + menu.getId();
             RouterVo router = new RouterVo();
             router.setHidden("1".equals(menu.getVisible()));
             router.setName(name);
@@ -193,7 +194,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
                 router.setRedirect("noRedirect");
                 router.setChildren(buildMenus(cMenus));
             } else if (menu.isMenuFrame()) {
-                String frameName = StringUtils.capitalize(menu.getPath()) + menu.getMenuId();
+                String frameName = StringUtils.capitalize(menu.getPath()) + menu.getId();
                 router.setMeta(null);
                 List<RouterVo> childrenList = new ArrayList<>();
                 RouterVo children = new RouterVo();
@@ -210,7 +211,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
                 List<RouterVo> childrenList = new ArrayList<>();
                 RouterVo children = new RouterVo();
                 String routerPath = SysMenu.innerLinkReplaceEach(menu.getPath());
-                String innerLinkName = StringUtils.capitalize(routerPath) + menu.getMenuId();
+                String innerLinkName = StringUtils.capitalize(routerPath) + menu.getId();
                 children.setPath(routerPath);
                 children.setComponent(SystemConstants.INNER_LINK);
                 children.setName(innerLinkName);
@@ -276,7 +277,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
      */
     @Override
     public boolean hasChildByMenuId(List<Long> menuIds) {
-        return baseMapper.exists(new LambdaQueryWrapper<SysMenu>().in(SysMenu::getParentId, menuIds).notIn(SysMenu::getMenuId, menuIds));
+        return baseMapper.exists(new LambdaQueryWrapper<SysMenu>().in(SysMenu::getParentId, menuIds).notIn(SysMenu::getId, menuIds));
     }
 
     /**
@@ -349,7 +350,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
         boolean exist = baseMapper.exists(new LambdaQueryWrapper<SysMenu>()
             .eq(SysMenu::getMenuName, menu.getMenuName())
             .eq(SysMenu::getParentId, menu.getParentId())
-            .ne(ObjectUtil.isNotNull(menu.getMenuId()), SysMenu::getMenuId, menu.getMenuId()));
+            .ne(ObjectUtil.isNotNull(menu.getMenuId()), SysMenu::getId, menu.getMenuId()));
         return !exist;
     }
 
@@ -377,11 +378,11 @@ public class SysMenuServiceImpl implements ISysMenuService {
      */
     private void recursionFn(List<SysMenu> list, SysMenu t) {
         // 得到子节点列表
-        List<SysMenu> childList = StreamUtils.filter(list, n -> n.getParentId().equals(t.getMenuId()));
+        List<SysMenu> childList = StreamUtils.filter(list, n -> n.getParentId().equals(t.getId()));
         t.setChildren(childList);
         for (SysMenu tChild : childList) {
             // 判断是否有子节点
-            if (list.stream().anyMatch(n -> n.getParentId().equals(tChild.getMenuId()))) {
+            if (list.stream().anyMatch(n -> n.getParentId().equals(tChild.getId()))) {
                 recursionFn(list, tChild);
             }
         }

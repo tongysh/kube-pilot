@@ -91,20 +91,20 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
         Map<String, Object> params = user.getParams();
         LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysUser::getDelFlag, SystemConstants.NORMAL)
-            .eq(ObjectUtil.isNotNull(user.getUserId()), SysUser::getUserId, user.getUserId())
-            .in(StringUtils.isNotBlank(user.getUserIds()), SysUser::getUserId, StringUtils.splitTo(user.getUserIds(), Convert::toLong))
+            .eq(ObjectUtil.isNotNull(user.getUserId()), SysUser::getId, user.getUserId())
+            .in(StringUtils.isNotBlank(user.getUserIds()), SysUser::getId, StringUtils.splitTo(user.getUserIds(), Convert::toLong))
             .like(StringUtils.isNotBlank(user.getUserName()), SysUser::getUserName, user.getUserName())
             .like(StringUtils.isNotBlank(user.getNickName()), SysUser::getNickName, user.getNickName())
             .eq(StringUtils.isNotBlank(user.getStatus()), SysUser::getStatus, user.getStatus())
-            .like(StringUtils.isNotBlank(user.getPhonenumber()), SysUser::getPhonenumber, user.getPhonenumber())
+            .like(StringUtils.isNotBlank(user.getPhonenumber()), SysUser::getPhoneNumber, user.getPhonenumber())
             .between(params.get("beginTime") != null && params.get("endTime") != null,
                 SysUser::getCreateTime, params.get("beginTime"), params.get("endTime"))
             .and(ObjectUtil.isNotNull(user.getDeptId()), w -> {
                 List<Long> ids = deptMapper.selectDeptAndChildById(user.getDeptId());
-                w.in(SysUser::getDeptId, ids);
-            }).orderByAsc(SysUser::getUserId);
+//                w.in(SysUser::getDeptId, ids);
+            }).orderByAsc(SysUser::getId);
         if (StringUtils.isNotBlank(user.getExcludeUserIds())) {
-            wrapper.notIn(SysUser::getUserId, StringUtils.splitTo(user.getExcludeUserIds(), Convert::toLong));
+            wrapper.notIn(SysUser::getId, StringUtils.splitTo(user.getExcludeUserIds(), Convert::toLong));
         }
         return wrapper;
     }
@@ -167,7 +167,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
      */
     @Override
     public SysUserVo selectUserByPhonenumber(String phonenumber) {
-        return baseMapper.selectVoOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getPhonenumber, phonenumber));
+        return baseMapper.selectVoOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getPhoneNumber, phonenumber));
     }
 
     /**
@@ -182,7 +182,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
         if (ObjectUtil.isNull(user)) {
             return user;
         }
-        user.setRoles(roleMapper.selectRolesByUserId(user.getUserId()));
+        user.setRoles(roleMapper.selectRolesByUserId(user.getId()));
         return user;
     }
 
@@ -196,10 +196,10 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
     @Override
     public List<SysUserVo> selectUserByIds(List<Long> userIds, Long deptId) {
         return baseMapper.selectUserList(new LambdaQueryWrapper<SysUser>()
-            .select(SysUser::getUserId, SysUser::getUserName, SysUser::getNickName)
+            .select(SysUser::getId, SysUser::getUserName, SysUser::getNickName)
             .eq(SysUser::getStatus, SystemConstants.NORMAL)
-            .eq(ObjectUtil.isNotNull(deptId), SysUser::getDeptId, deptId)
-            .in(CollUtil.isNotEmpty(userIds), SysUser::getUserId, userIds));
+//            .eq(ObjectUtil.isNotNull(deptId), SysUser::getDeptId, deptId)
+            .in(CollUtil.isNotEmpty(userIds), SysUser::getId, userIds));
     }
 
     /**
@@ -242,7 +242,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
     public boolean checkUserNameUnique(SysUserBo user) {
         boolean exist = baseMapper.exists(new LambdaQueryWrapper<SysUser>()
             .eq(SysUser::getUserName, user.getUserName())
-            .ne(ObjectUtil.isNotNull(user.getUserId()), SysUser::getUserId, user.getUserId()));
+            .ne(ObjectUtil.isNotNull(user.getUserId()), SysUser::getId, user.getUserId()));
         return !exist;
     }
 
@@ -254,8 +254,8 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
     @Override
     public boolean checkPhoneUnique(SysUserBo user) {
         boolean exist = baseMapper.exists(new LambdaQueryWrapper<SysUser>()
-            .eq(SysUser::getPhonenumber, user.getPhonenumber())
-            .ne(ObjectUtil.isNotNull(user.getUserId()), SysUser::getUserId, user.getUserId()));
+            .eq(SysUser::getPhoneNumber, user.getPhonenumber())
+            .ne(ObjectUtil.isNotNull(user.getUserId()), SysUser::getId, user.getUserId()));
         return !exist;
     }
 
@@ -268,7 +268,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
     public boolean checkEmailUnique(SysUserBo user) {
         boolean exist = baseMapper.exists(new LambdaQueryWrapper<SysUser>()
             .eq(SysUser::getEmail, user.getEmail())
-            .ne(ObjectUtil.isNotNull(user.getUserId()), SysUser::getUserId, user.getUserId()));
+            .ne(ObjectUtil.isNotNull(user.getUserId()), SysUser::getId, user.getUserId()));
         return !exist;
     }
 
@@ -314,7 +314,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
         SysUser sysUser = MapstructUtils.convert(user, SysUser.class);
         // 新增用户信息
         int rows = baseMapper.insert(sysUser);
-        user.setUserId(sysUser.getUserId());
+        user.setUserId(sysUser.getId());
         // 新增用户岗位关联
         insertUserPost(user, false);
         // 新增用户与角色管理
@@ -333,7 +333,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
         user.setCreateBy(0L);
         user.setUpdateBy(0L);
         SysUser sysUser = MapstructUtils.convert(user, SysUser.class);
-        sysUser.setTenantId(tenantId);
+//        sysUser.setTenantId(tenantId);
         return baseMapper.insert(sysUser) > 0;
     }
 
@@ -384,7 +384,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
         return baseMapper.update(null,
             new LambdaUpdateWrapper<SysUser>()
                 .set(SysUser::getStatus, status)
-                .eq(SysUser::getUserId, userId));
+                .eq(SysUser::getId, userId));
     }
 
     /**
@@ -399,10 +399,10 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
         return baseMapper.update(null,
             new LambdaUpdateWrapper<SysUser>()
                 .set(ObjectUtil.isNotNull(user.getNickName()), SysUser::getNickName, user.getNickName())
-                .set(SysUser::getPhonenumber, user.getPhonenumber())
+                .set(SysUser::getPhoneNumber, user.getPhonenumber())
                 .set(SysUser::getEmail, user.getEmail())
                 .set(SysUser::getSex, user.getSex())
-                .eq(SysUser::getUserId, user.getUserId()));
+                .eq(SysUser::getId, user.getUserId()));
     }
 
     /**
@@ -417,7 +417,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
         return baseMapper.update(null,
             new LambdaUpdateWrapper<SysUser>()
                 .set(SysUser::getAvatar, avatar)
-                .eq(SysUser::getUserId, userId)) > 0;
+                .eq(SysUser::getId, userId)) > 0;
     }
 
     /**
@@ -432,7 +432,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
         return baseMapper.update(null,
             new LambdaUpdateWrapper<SysUser>()
                 .set(SysUser::getPassword, password)
-                .eq(SysUser::getUserId, userId));
+                .eq(SysUser::getId, userId));
     }
 
     /**
@@ -575,8 +575,8 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
     @Override
     public List<SysUserVo> selectUserListByDept(Long deptId) {
         LambdaQueryWrapper<SysUser> lqw = Wrappers.lambdaQuery();
-        lqw.eq(SysUser::getDeptId, deptId);
-        lqw.orderByAsc(SysUser::getUserId);
+//        lqw.eq(SysUser::getDeptId, deptId);
+        lqw.orderByAsc(SysUser::getId);
         return baseMapper.selectVoList(lqw);
     }
 
@@ -590,7 +590,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
     @Override
     public String selectUserNameById(Long userId) {
         SysUser sysUser = baseMapper.selectOne(new LambdaQueryWrapper<SysUser>()
-            .select(SysUser::getUserName).eq(SysUser::getUserId, userId));
+            .select(SysUser::getUserName).eq(SysUser::getId, userId));
         return ObjectUtils.notNullGetter(sysUser, SysUser::getUserName);
     }
 
@@ -604,7 +604,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
     @Cacheable(cacheNames = CacheNames.SYS_NICKNAME, key = "#userId")
     public String selectNicknameById(Long userId) {
         SysUser sysUser = baseMapper.selectOne(new LambdaQueryWrapper<SysUser>()
-            .select(SysUser::getNickName).eq(SysUser::getUserId, userId));
+            .select(SysUser::getNickName).eq(SysUser::getId, userId));
         return ObjectUtils.notNullGetter(sysUser, SysUser::getNickName);
     }
 
@@ -635,8 +635,8 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
     @Override
     public String selectPhonenumberById(Long userId) {
         SysUser sysUser = baseMapper.selectOne(new LambdaQueryWrapper<SysUser>()
-            .select(SysUser::getPhonenumber).eq(SysUser::getUserId, userId));
-        return ObjectUtils.notNullGetter(sysUser, SysUser::getPhonenumber);
+            .select(SysUser::getPhoneNumber).eq(SysUser::getId, userId));
+        return ObjectUtils.notNullGetter(sysUser, SysUser::getPhoneNumber);
     }
 
     /**
@@ -648,7 +648,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
     @Override
     public String selectEmailById(Long userId) {
         SysUser sysUser = baseMapper.selectOne(new LambdaQueryWrapper<SysUser>()
-            .select(SysUser::getEmail).eq(SysUser::getUserId, userId));
+            .select(SysUser::getEmail).eq(SysUser::getId, userId));
         return ObjectUtils.notNullGetter(sysUser, SysUser::getEmail);
     }
 
@@ -664,12 +664,12 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
             return List.of();
         }
         List<SysUserVo> list = baseMapper.selectVoList(new LambdaQueryWrapper<SysUser>()
-            .select(SysUser::getUserId, SysUser::getDeptId, SysUser::getUserName,
+            .select(SysUser::getId, SysUser::getUserName,
                 SysUser::getNickName, SysUser::getUserType, SysUser::getEmail,
-                SysUser::getPhonenumber, SysUser::getSex, SysUser::getStatus,
+                SysUser::getPhoneNumber, SysUser::getSex, SysUser::getStatus,
                 SysUser::getCreateTime)
             .eq(SysUser::getStatus, SystemConstants.NORMAL)
-            .in(SysUser::getUserId, userIds));
+            .in(SysUser::getId, userIds));
         return BeanUtil.copyToList(list, UserDTO.class);
     }
 
@@ -723,9 +723,9 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
             return List.of();
         }
         List<SysUserVo> list = baseMapper.selectVoList(new LambdaQueryWrapper<SysUser>()
-            .select(SysUser::getUserId, SysUser::getUserName, SysUser::getNickName, SysUser::getEmail, SysUser::getPhonenumber)
-            .eq(SysUser::getStatus, SystemConstants.NORMAL)
-            .in(SysUser::getDeptId, deptIds));
+            .select(SysUser::getId, SysUser::getUserName, SysUser::getNickName, SysUser::getEmail, SysUser::getPhoneNumber)
+            .eq(SysUser::getStatus, SystemConstants.NORMAL));
+//            .in(SysUser::getDeptId, deptIds));
         return BeanUtil.copyToList(list, UserDTO.class);
     }
 
@@ -764,10 +764,10 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
         }
         List<SysUser> list = baseMapper.selectList(
             new LambdaQueryWrapper<SysUser>()
-                .select(SysUser::getUserId, SysUser::getNickName)
-                .in(SysUser::getUserId, userIds)
+                .select(SysUser::getId, SysUser::getNickName)
+                .in(SysUser::getId, userIds)
         );
-        return StreamUtils.toMap(list, SysUser::getUserId, SysUser::getNickName);
+        return StreamUtils.toMap(list, SysUser::getId, SysUser::getNickName);
     }
 
 }

@@ -78,8 +78,8 @@ public class AuthController {
 
 
     @ApiEncrypt
-    @PostMapping("/common/login")
-    public R<LoginVo> commonLogin(@RequestBody String body) {
+    @PostMapping("/login")
+    public R<LoginVo> login(@RequestBody String body) {
 
         LoginBody loginBody = JsonUtils.parseObject(body, LoginBody.class);
 

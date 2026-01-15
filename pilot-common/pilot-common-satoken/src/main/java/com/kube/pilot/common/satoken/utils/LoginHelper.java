@@ -52,10 +52,10 @@ public class LoginHelper {
         StpUtil.login(loginUser.getLoginId(),
 //            model.setExtra(TENANT_KEY, loginUser.getTenantId())
                 model.setExtra(USER_KEY, loginUser.getUserId())
-                .setExtra(USER_NAME_KEY, loginUser.getUsername())
-                .setExtra(DEPT_KEY, loginUser.getDeptId())
-                .setExtra(DEPT_NAME_KEY, loginUser.getDeptName())
-                .setExtra(DEPT_CATEGORY_KEY, loginUser.getDeptCategory())
+                .setExtra(USER_NAME_KEY, loginUser.getUserName())
+//                .setExtra(DEPT_KEY, loginUser.getDeptId())
+//                .setExtra(DEPT_NAME_KEY, loginUser.getDeptName())
+//                .setExtra(DEPT_CATEGORY_KEY, loginUser.getDeptCategory())
         );
         StpUtil.getTokenSession().set(LOGIN_USER_KEY, loginUser);
     }
@@ -197,7 +197,7 @@ public class LoginHelper {
         if (loginUser == null) {
             return false;
         }
-        return Convert.toBool(isTenantAdmin(loginUser.getRolePermission()));
+        return Convert.toBool(isTenantAdmin(loginUser.getTenantRolePermission()));
     }
 
     /**

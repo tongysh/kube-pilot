@@ -72,7 +72,7 @@ public interface SysRoleMapper extends BaseMapperPlus<SysRole, SysRoleVo> {
         @DataColumn(key = "userName", value = "create_by")
     })
     default long selectRoleCount(List<Long> roleIds) {
-        return this.selectCount(new LambdaQueryWrapper<SysRole>().in(SysRole::getRoleId, roleIds));
+        return this.selectCount(new LambdaQueryWrapper<SysRole>().in(SysRole::getId, roleIds));
     }
 
     /**
@@ -97,9 +97,9 @@ public interface SysRoleMapper extends BaseMapperPlus<SysRole, SysRoleVo> {
      */
     default List<SysRoleVo> selectRolesByUserId(Long userId) {
         return this.selectVoList(new LambdaQueryWrapper<SysRole>()
-            .select(SysRole::getRoleId, SysRole::getRoleName, SysRole::getRoleKey,
-                SysRole::getRoleSort, SysRole::getDataScope, SysRole::getStatus)
-            .inSql(SysRole::getRoleId, this.buildRoleByUserSql(userId)));
+            .select(SysRole::getId, SysRole::getRoleName, SysRole::getRoleKey,
+                SysRole::getStatus)
+            .inSql(SysRole::getId, this.buildRoleByUserSql(userId)));
     }
 
 }
