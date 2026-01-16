@@ -168,11 +168,11 @@ public class SysLoginService {
             setLoginUserInfoForPlatformUser(loginUser,userId);
         } else if ("tenant".equals(userType)) {
             // 租户系统用户
-//            setLoginUserInfoForTenantUser(loginUser,userId);
+            setLoginUserInfoForTenantUser(loginUser,userId);
         } else if ("platformAndTenant".equals(userType)) {
             // 当前用户既是平台用户  又是租户系统的用户
             setLoginUserInfoForPlatformUser(loginUser,userId);
-//            setLoginUserInfoForTenantUser(loginUser,userId);
+            setLoginUserInfoForTenantUser(loginUser,userId);
         }
 
 
@@ -215,6 +215,13 @@ public class SysLoginService {
      * @param loginUser
      */
     private void setLoginUserInfoForTenantUser(LoginUser loginUser,Long userId) {
+
+
+        // 当前用户管理的所有租户系统
+
+        // 当前用户默认登录的租户系统
+
+
 
 
     }

@@ -1,5 +1,6 @@
 package com.kube.pilot.common.core.domain.model;
 
+import com.kube.pilot.common.core.domain.dto.TenantDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.kube.pilot.common.core.domain.dto.PostDTO;
@@ -39,13 +40,13 @@ public class LoginUser implements Serializable {
     /**
      * 当前用户管理的租户系统id列表
      */
-    private List<Long> manageTenantIds;
+    private List<TenantDTO> manageTenants;
 
 
     /**
      * 当前用户登录到的租户系统
      */
-    private Long tenantId;
+    private TenantDTO loginTenant;
 
 
 

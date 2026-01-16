@@ -34,16 +34,6 @@ public class SysUserVo implements Serializable {
     private Long id;
 
     /**
-     * 租户ID
-     */
-//    private String tenantId;
-
-    /**
-     * 部门ID
-     */
-    private Long deptId;
-
-    /**
      * 用户账号
      */
     private String userName;
@@ -54,7 +44,7 @@ public class SysUserVo implements Serializable {
     private String nickName;
 
     /**
-     * 用户类型（sys_user系统用户）
+     * 用户类型
      */
     private String userType;
 
@@ -93,15 +83,15 @@ public class SysUserVo implements Serializable {
      */
     private String status;
 
-    /**
-     * 最后登录IP
-     */
-    private String loginIp;
-
-    /**
-     * 最后登录时间
-     */
-    private Date loginDate;
+//    /**
+//     * 最后登录IP
+//     */
+//    private String loginIp;
+//
+//    /**
+//     * 最后登录时间
+//     */
+//    private Date loginDate;
 
     /**
      * 备注
