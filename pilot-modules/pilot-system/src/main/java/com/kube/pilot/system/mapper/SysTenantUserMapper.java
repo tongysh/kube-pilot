@@ -16,7 +16,7 @@ public interface SysTenantUserMapper extends BaseMapperPlus<SysTenantUser,SysTen
     List<SysTenantVo> getAllManageTenantOfUser(String userId);
 
 
-    List<SysUserVo> getAllUserOfTenant(String tenantId)
+    List<SysUserVo> getAllUserOfTenant(String tenantId);
 
 
 }

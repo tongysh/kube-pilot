@@ -4,10 +4,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kube.pilot.system.mapper.SysTenantUserMapper">
 
+    <resultMap type="com.kube.pilot.system.domain.vo.SysUserVo" id="userVoResultMap">
+        <id property="userId" column="user_id"/>
+    </resultMap>
+    <resultMap type="com.kube.pilot.system.domain.vo.SysTenantVo" id="tenantVoResultMap">
+        <id property="id" column="id"/>
+        <result property="" column="tenant_code"/>
+        <result property="" column="tenant_code"/>
+        <result property="" column="tenant_code"/>
+        <result property="" column="tenant_code"/>
+    </resultMap>
 
 
 
-    <select id="getAllManageTenantOfUser">
+    <select id="getAllManageTenantOfUser" resultMap="tenantVoResultMap">
         select
             st.*
         from

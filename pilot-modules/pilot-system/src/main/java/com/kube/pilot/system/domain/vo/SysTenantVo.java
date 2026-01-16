@@ -36,7 +36,7 @@ public class SysTenantVo implements Serializable {
      * 租户编号
      */
     @ExcelProperty(value = "租户编号")
-    private String tenantId;
+    private String tenantCode;
 
     /**
      * 联系人
